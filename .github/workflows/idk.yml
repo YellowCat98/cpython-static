@@ -40,6 +40,11 @@ jobs:
           
         # Replace /MD with /MT to use the static C runtime
         (Get-Content "PCbuild/build.bat") -replace "/MD", "/MT" | Set-Content "PCbuild/build.bat"
+        
+        (Get-Content "PCbuild/build.bat") -replace "/MDd", "/MTd" | Set-Content "PCbuild/build.bat"
+        (Get-Content "PCbuild/build.bat") -replace "-DMSVCRT_DLL", "-DMSVCRT_STATIC" | Set-Content "PCbuild/build.bat"
+        (Get-Content "PCbuild/build.bat") -replace "/DLL", "" | Set-Content "PCbuild/build.bat"
+        (Get-Content "PCbuild/build.bat") -replace "/shared", "" | Set-Content "PCbuild/build.bat"
 
     - name: Build Python (Static)
       shell: cmd
