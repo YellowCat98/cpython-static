@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         choco install -y visualstudio2022buildtools visualstudio2022-workload-vctools
-        choco install -y nasm python3
+        choco install -y nasm python3 --install-arguments="'/l*v c:\python_install.log' /norestart"
 
     - name: Configure environment
       run: |
