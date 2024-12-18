@@ -59,7 +59,7 @@ jobs:
           CFLAGS: -g3 -O0
         run: |
           # Build Python with the libpython dynamic library
-          ./configure --enable-shared
+          ./configure --enable-static
           make -j4
       - name: Check for changes in the ABI
         id: check
@@ -164,7 +164,7 @@ jobs:
       - name: Configure CPython
         run: |
           # Build Python with the libpython dynamic library
-          ./configure --config-cache --with-pydebug --enable-shared
+          ./configure --config-cache --with-pydebug --enable-static
       - name: Build CPython
         run: |
           make -j4 regen-all
