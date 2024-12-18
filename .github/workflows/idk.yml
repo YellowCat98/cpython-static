@@ -1,0 +1,36 @@
+name: Build Python
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-windows:
+    name: Build Python Fork (Windows)
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        choco install -y visualstudio2022buildtools visualstudio2022-workload-vctools
+        choco install -y nasm python3
+
+    - name: Configure environment
+      run: |
+        setx PATH "%PATH%;C:\\Program Files\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.x.x\\bin\\Hostx64\\x64"
+
+    - name: Build Python
+      run: |
+        cd PCbuild
+        build.bat -c Release
+
+    - name: Upload binaries
+      uses: actions/upload-artifact@v3
+      with:
+        name: python-fork-static-windows
+        path: PCbuild\\amd64\\Release\\*
