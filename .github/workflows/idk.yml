@@ -30,6 +30,7 @@ jobs:
         setx PATH "%PATH%;C:\\Program Files\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.x.x\\bin\\Hostx64\\x64"
 
     - name: Build Python
+      shell: cmd
       run: |
         cd PCbuild
         build.bat -c Release
