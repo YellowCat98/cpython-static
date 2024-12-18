@@ -16,11 +16,14 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+    
+    - name: Check if python is installed before installed dependencies
+      run: python --version
 
     - name: Install dependencies
       run: |
         choco install -y visualstudio2022buildtools visualstudio2022-workload-vctools
-        choco install -y nasm python3 --install-arguments="'/l*v c:\python_install.log' /norestart"
+        choco install -y nasm
 
     - name: Configure environment
       run: |
