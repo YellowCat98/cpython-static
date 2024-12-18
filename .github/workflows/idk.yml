@@ -1,23 +1,23 @@
-name: Build Python
+name: Build Python Static
 
 on:
-    push:
-      branches:
-        - "3.13"
-    pull_request:
-      branches:
-        - "3.13"
+  push:
+    branches:
+      - "3.13"
+  pull_request:
+    branches:
+      - "3.13"
 
 jobs:
   build-windows:
-    name: Build Python Fork (Windows)
+    name: Build Python Static (Windows)
     runs-on: windows-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-    
-    - name: Check if python is installed before installed dependencies
+
+    - name: Check if python is installed before installing dependencies
       run: python --version
 
     - name: Install dependencies
@@ -27,9 +27,21 @@ jobs:
 
     - name: Configure environment
       run: |
-        setx PATH "%PATH%;C:\\Program Files\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.x.x\\bin\\Hostx64\\x64"
+        setx PATH "%PATH%;C:/Program Files/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.x.x/bin/Hostx64/x64"
 
-    - name: Build Python
+    - name: Modify build.bat for static linking (PowerShell)
+      shell: pwsh
+      run: |
+        # Replace -DLL with -MT for static linking
+        (Get-Content "PCbuild/build.bat") -replace "-DLL", "-MT" | Set-Content "PCbuild/build.bat"
+          
+        # Remove the -shared flag
+        (Get-Content "PCbuild/build.bat") -replace "-shared", "" | Set-Content "PCbuild/build.bat"
+          
+        # Replace /MD with /MT to use the static C runtime
+        (Get-Content "PCbuild/build.bat") -replace "/MD", "/MT" | Set-Content "PCbuild/build.bat"
+
+    - name: Build Python (Static)
       shell: cmd
       run: |
         cd PCbuild
@@ -39,4 +51,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: python-fork-static-windows
-        path: PCbuild\\amd64\\Release\\*
+        path: PCbuild/amd64/python*.*
