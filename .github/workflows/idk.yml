@@ -1,10 +1,12 @@
 name: Build Python
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+    push:
+      branches:
+        - "3.13"
+    pull_request:
+      branches:
+        - "3.13"
 
 jobs:
   build-windows:
