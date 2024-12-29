@@ -112,7 +112,7 @@ if "%IncludeExternals%"=="true" call "%dir%get_externals.bat"
 if "%do_pgo%" EQU "true" if "%platf%" EQU "x64" (
     if "%PROCESSOR_ARCHITEW6432%" NEQ "AMD64" if "%PROCESSOR_ARCHITECTURE%" NEQ "AMD64" (
         echo.ERROR: Cannot cross-compile with PGO 
-        echo.       32bit operating system detected. Ensure your PROCESSOR_ARCHITECTURE
+        echo.       Thirty Two Bits operating system detected. Ensure your PROCESSOR_ARCHITECTURE
         echo.       and PROCESSOR_ARCHITEW6432 environment variables are correct.
         exit /b 1 
     )
