@@ -7,7 +7,7 @@ echo.Build CPython from the command line.  Requires the appropriate
 echo.version(s) of Microsoft Visual Studio to be installed (see readme.txt).
 echo.
 echo.After the flags recognized by this script, up to 9 arguments to be passed
-echo.directly to MSBuild may be passed.  If the argument contains an '=', the
+echo.directly to MSBuild may be passed.  If the argument contains an =, the
 echo.entire argument must be quoted (e.g. `%~nx0 "/p:PlatformToolset=v100"`).
 echo.Alternatively you can put extra flags for MSBuild in a file named 
 echo.`msbuild.rsp` in the `PCbuild` directory, one flag per line. This file
@@ -20,7 +20,7 @@ echo.  -h  Display this help message
 echo.  -V  Display version information for the current build
 echo.  -r  Target Rebuild instead of Build
 echo.  -d  Set the configuration to Debug
-echo.  -E  Don't fetch or build external libraries.  Extension modules that
+echo.  -E  Dont fetch or build external libraries.  Extension modules that
 echo.      depend on external libraries will not attempt to build if this flag
 echo.      is present; -e is also accepted to explicitly enable fetching and
 echo.      building externals.
@@ -41,7 +41,7 @@ echo.  --experimental-jit-off      Ditto but off by default (PYTHON_JIT=1 enable
 echo.  --experimental-jit-interpreter  Enable the experimental Tier 2 interpreter.
 echo.
 echo.Available flags to avoid building certain modules.
-echo.These flags have no effect if '-e' is not given:
+echo.These flags have no effect if -e is not given:
 echo.  --no-ctypes   Do not attempt to build _ctypes
 echo.  --no-ssl      Do not attempt to build _ssl
 echo.  --no-tkinter  Do not attempt to build Tkinter
@@ -140,7 +140,7 @@ if "%do_pgo%"=="true" (
     call :Build %1 %2 %3 %4 %5 %6 %7 %8 %9
 )
 rem %VARS% are evaluated eagerly, which would lose the ERRORLEVEL
-rem value if we didn't split it out here.
+rem value if we didnt split it out here.
 if "%do_pgo%"=="true" if ERRORLEVEL 1 exit /B %ERRORLEVEL%
 if "%do_pgo%"=="true" (
     del /s "%dir%\*.pgc"
